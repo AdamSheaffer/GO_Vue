@@ -11,10 +11,9 @@
     "start": "node ./start.js",
     "build": "cd client && ng build --prod",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"nodemon --inspect start.js\" \"cd client/ && ng serve --proxy-config proxy.config.json\"",
+    "dev": "concurrently \"nodemon --inspect start.js\" \"cd client/ && npm run serve\"",
     "loadparks": "node ./data/parkData.js",
-    "blowitallaway": "node ./data/parkData.js --delete",
-    "postinstall": "cd client && npm install && ./node_modules/.bin/ng build --prod"
+    "blowitallaway": "node ./data/parkData.js --delete"
   },
   "repository": {
     "type": "git",
@@ -54,5 +53,10 @@
   "homepage": "https://github.com/AdamSheaffer/GO#readme",
   "devDependencies": {
     "concurrently": "^3.5.1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "client/*"
+    ]
   }
 }
