@@ -4,13 +4,16 @@
       <el-menu
         mode="horizontal"
         :router="true"
+        background-color="#002538"
+        active-text-color="#fafafa"
+        text-color="#ababab"
         class="menu">
-        <el-menu-item index="/">
+        <el-menu-item index="/" class="brand">
           <img
             class="menu__img"
             src="../assets/images/009-location-sm.png"
             alt="logo">
-          <h3 class="menu__logo">Ground Out</h3>
+          <span class="menu__logo">Ground Out</span>
         </el-menu-item>
         <el-menu-item index="/tickets" :route="{ name: 'tickets' }">
           Find Tickets
@@ -29,8 +32,8 @@ export default {}
 </script>
 
 <style lang="scss" scoped>
-.menu {
-  background: #002538;
+.menu li:first-of-type {
+  border-bottom: none;
 }
 
 .menu__img {
@@ -39,5 +42,7 @@ export default {}
 
 .menu__logo {
   display: inline;
+  color: #fafafa;
+  font-size: 18px;
 }
 </style>
