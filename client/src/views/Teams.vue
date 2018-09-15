@@ -9,7 +9,7 @@
         :default-openeds="['2', '3']"
         class="el-menu-vertical-demo team-list">
         <el-menu-item
-          index="1"
+          index="#"
           @click="toggleSidebar"
           class="team-list__toggle">
           <i :class="{'el-icon-arrow-right': sidebarCollapsed, 'el-icon-arrow-left': !sidebarCollapsed}"></i>

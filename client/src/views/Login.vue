@@ -10,7 +10,8 @@
               src="../assets/images/012-card.png"
               alt="Login">
           </div>
-          <span>LOGIN</span>
+          <span class="login__header login__header--sm">Welcome to Ground Out</span>
+          <span class="login__header login__header--lg">LOGIN</span>
           </div>
           <el-form
             :model="loginForm"
@@ -115,5 +116,17 @@ export default {
 .login__header {
   text-align: center;
   color: #002638;
+}
+
+.login__header--sm {
+  display: block;
+  opacity: 0.65;
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.login__header--lg {
+  display: block;
+  font-size: 30px;
 }
 </style>
