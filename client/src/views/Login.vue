@@ -66,7 +66,8 @@ export default {
     ...mapActions(['login']),
 
     submit() {
-      this.login({ email: this.email, password: this.pw })
+      const { email, pw: password } = this.loginForm
+      this.login({ email, password })
         .then(data => {
           if (data.success) {
             this.$message({
