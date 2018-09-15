@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import TicketFinder from './views/TicketFinder.vue'
 import Teams from './views/Teams.vue'
+import TeamsWelcome from './components/TeamsWelcome.vue'
+import TeamDetails from './components/TeamDetails.vue'
 
 Vue.use(Router)
 
@@ -20,8 +22,18 @@ export default new Router({
     },
     {
       path: '/teams',
-      name: 'teams',
-      component: Teams
+      component: Teams,
+      children: [
+        {
+          name: 'teams',
+          path: '/',
+          component: TeamsWelcome
+        },
+        {
+          path: ':team',
+          component: TeamDetails
+        }
+      ]
     },
     {
       path: '/about',

@@ -22,4 +22,8 @@ export default {
 html {
   font-family: 'Metropolis', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
 }
+
+body {
+  margin: 0;
+}
 </style>
