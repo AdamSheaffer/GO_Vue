@@ -5,6 +5,7 @@ import TicketFinder from './views/TicketFinder.vue'
 import Teams from './views/Teams.vue'
 import TeamsWelcome from './components/TeamsWelcome.vue'
 import TeamDetails from './components/TeamDetails.vue'
+import Login from './views/Login.vue'
 
 Vue.use(Router)
 
@@ -14,6 +15,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/tickets',
