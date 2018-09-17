@@ -16,44 +16,55 @@
 </template>
 
 <script>
-import tripsService from '../services/trips.service'
-import parkService from '../services/park.service'
+// import parkService from '../services/park.service'
 import Trip from '../components/Trip.vue'
+import { STATE, ACTIONS } from '../store/modules/userTrips.module'
 import { createNamespacedHelpers } from 'vuex'
-import { STATE } from '../store/modules/auth.module'
 
-const { mapState } = createNamespacedHelpers('authModule')
+const { mapState, mapActions } = createNamespacedHelpers('userTripsModule')
 
 export default {
   components: {
     'user-trip': Trip
   },
 
-  data() {
-    return {
-      trips: [],
-      parks: [],
-      badges: []
-    }
+  mounted() {
+    this.getUserTrips()
+      .then(data => {
+        if (!data.success) {
+          this.$message({
+            message: data.message,
+            type: 'error',
+            center: true
+          })
+        }
+      })
+      .catch(() => {
+        this.$message({
+          message: 'Woops! something went wrong',
+          type: 'error',
+          center: true
+        })
+      })
+
+    // tripsService.getBadges(this.user._id).then(data => {
+    //   this.badges = data.badges
+    // })
+
+    // parkService.getAllParks().then(data => {
+    //   this.parks = data.parks
+    // })
   },
 
-  mounted() {
-    tripsService.getUserTrips().then(data => {
-      this.trips = data.trips
-    })
-
-    tripsService.getBadges(this.user._id).then(data => {
-      this.badges = data.badges
-    })
-
-    parkService.getAllParks().then(data => {
-      this.parks = data.parks
+  methods: {
+    ...mapActions({
+      getUserTrips: ACTIONS.GET_TRIPS
     })
   },
 
   computed: {
     ...mapState({
-      user: STATE.USER
+      trips: STATE.TRIPS
     })
   }
 }
