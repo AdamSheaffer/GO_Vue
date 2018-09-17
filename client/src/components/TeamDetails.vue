@@ -10,7 +10,6 @@
     <el-row class="details-body" :gutter="40">
       <el-col :lg="12" :xs="24">
         <ticket-list
-          v-show="events.length"
           :events="events"
           :total-event-count="eventsMetaData.total"
           :page="ticketParams.page"

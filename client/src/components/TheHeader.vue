@@ -22,6 +22,12 @@
           <el-menu-item index="/teams/welcome" :route="{ name: 'teams' }">
             Teams
           </el-menu-item>
+          <el-menu-item
+            v-if="isLoggedIn"
+            index="/trips"
+            :route="{ name: 'trips' }">
+            Scrapbook
+          </el-menu-item>
         </div>
         <div class="menu--right">
           <el-menu-item

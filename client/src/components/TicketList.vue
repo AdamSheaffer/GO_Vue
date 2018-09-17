@@ -31,7 +31,7 @@
     <div class="text item">
       <el-alert
         :closable="false"
-        v-if="totalEventCount < 1"
+        v-if="!totalEventCount || totalEventCount < 1"
         title="No Tickets Found"
         type="info"
         center
