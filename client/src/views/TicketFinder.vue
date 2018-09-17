@@ -57,9 +57,9 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['SET_LOCATION', 'SET_PAGING']),
+    ...mapMutations('ticketFinderModule', ['SET_LOCATION', 'SET_PAGING']),
 
-    ...mapActions(['searchTickets']),
+    ...mapActions('ticketFinderModule', ['searchTickets']),
 
     onPageDown() {
       const previousPage = this.paging.page - 1
@@ -80,8 +80,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['events', 'paging']),
-    ...mapGetters(['totalEventCount', 'locationVenues'])
+    ...mapState('ticketFinderModule', ['events', 'paging']),
+    ...mapGetters('ticketFinderModule', ['totalEventCount', 'locationVenues'])
   }
 }
 </script>

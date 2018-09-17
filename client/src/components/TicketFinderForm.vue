@@ -64,6 +64,12 @@
 
 <script>
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+import {
+  STATE,
+  MUTATIONS,
+  ACTIONS,
+  GETTERS
+} from '../store/modules/ticketFinder.module'
 
 export default {
   data() {
@@ -109,9 +115,13 @@ export default {
   },
 
   methods: {
-    ...mapActions(['searchTickets']),
+    ...mapActions('ticketFinderModule', [ACTIONS.SEARCH_TICKETS]),
 
-    ...mapMutations(['SET_EVENTS', 'SET_SEARCH_PARAMS', 'SET_PAGING']),
+    ...mapMutations('ticketFinderModule', [
+      MUTATIONS.SET_EVENTS,
+      MUTATIONS.SET_SEARCH_PARAMS,
+      MUTATIONS.SET_PAGING
+    ]),
 
     findGames() {
       this.isSearching = true
@@ -131,9 +141,9 @@ export default {
   },
 
   computed: {
-    ...mapState(['lat', 'lon']),
+    ...mapState('ticketFinderModule', [STATE.LAT, STATE.LON]),
 
-    ...mapGetters(['totalEventCount']),
+    ...mapGetters('ticketFinderModule', [GETTERS.TOTAL_EVENTS_COUNT]),
 
     // TODO: Explore Vue Validators
     isValid() {

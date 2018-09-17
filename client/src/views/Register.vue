@@ -1,44 +1,64 @@
 <template>
   <el-main class="main">
     <el-row type="flex" justify="center">
-      <el-col :xl="6" :lg="8" :md="12" :sm="16" :xs="24" class="login">
+      <el-col
+        :xl="6"
+        :lg="8"
+        :md="12"
+        :sm="16"
+        :xs="24"
+        class="register">
         <el-card>
           <div slot="header" class="clearfix">
-          <div class="login__img-container">
+          <div class="register__img-container">
             <img
-              class="login__img"
+              class="register__img"
               src="../assets/images/012-card.png"
-              alt="Login">
+              alt="Register">
           </div>
-          <span class="login__header login__header--sm">Welcome to Ground Out</span>
-          <span class="login__header login__header--lg">LOGIN</span>
+          <span class="register__header register__header--sm">Welcome to Ground Out</span>
+          <span class="register__header register__header--lg">SIGN UP</span>
           </div>
           <el-form
-            :model="loginForm"
-            ref="loginForm"
+            :model="registerForm"
+            ref="registerForm"
             :rules="rules">
+            <el-form-item label="Username" prop="name">
+              <el-input
+                v-model="registerForm.name"
+                type="text"
+                placeholder="Username">
+              </el-input>
+            </el-form-item>
             <el-form-item label="Email" prop="email">
               <el-input
-                v-model="loginForm.email"
+                v-model="registerForm.email"
                 type="text"
                 placeholder="Email">
               </el-input>
             </el-form-item>
             <el-form-item label="Password" prop="pw">
               <el-input
-                v-model="loginForm.pw"
+                v-model="registerForm.pw"
                 type="password"
                 placeholder="Password">
               </el-input>
             </el-form-item>
+            <el-form-item label="Confirm Password" prop="confirm">
+              <el-input
+                v-model="registerForm.confirm"
+                type="password"
+                placeholder="Confirm Password">
+              </el-input>
+            </el-form-item>
             <el-alert
-              :closable="false"
               v-if="showValidationError"
-              title="Please correct errors before logging in"
+              :closable="false"
+              title="Please correct errors before submitting"
               type="error"
-              class="alert">
+              class="alert alert--error">
             </el-alert>
-            <el-button @click="submit">Log In</el-button>
+            <el-button @click="submit">Register</el-button>
           </el-form>
         </el-card>
       </el-col>
@@ -52,13 +72,26 @@ import { ACTIONS } from '../store/modules/auth.module'
 
 export default {
   data() {
+    const validatePasswordConfirm = (rule, value, fn) => {
+      if (value !== this.registerForm.pw) {
+        fn(new Error("Passwords don't match"))
+      } else {
+        fn()
+      }
+    }
+
     return {
-      loginForm: {
+      registerForm: {
+        name: '',
         email: '',
-        pw: ''
+        pw: '',
+        confirm: ''
       },
 
       rules: {
+        name: [
+          { required: true, message: 'Username is required', trigger: 'blur' }
+        ],
         email: [
           { type: 'email', message: 'Invalid Email', trigger: 'blur' },
           { required: true, message: 'Email is required', trigger: 'blur' },
@@ -66,6 +99,10 @@ export default {
         ],
         pw: [
           { required: true, message: 'Password is required', trigger: 'blur' }
+        ],
+        confirm: [
+          { required: true, message: 'Passowrd is required', trigger: 'blur' },
+          { validator: validatePasswordConfirm, trigger: 'blur' }
         ]
       },
 
@@ -74,22 +111,22 @@ export default {
   },
 
   methods: {
-    ...mapActions('authModule', [ACTIONS.LOGIN]),
+    ...mapActions('authModule', [ACTIONS.REGISTER]),
 
     submit() {
-      this.$refs.loginForm.validate(isValid => {
+      this.$refs.registerForm.validate(isValid => {
         if (isValid) {
           this.showValidationError = false
-          this.attemptLogin()
+          this.attemptRegister()
         } else {
           this.showValidationError = true
         }
       })
     },
 
-    attemptLogin() {
-      const { email, pw: password } = this.loginForm
-      this.login({ email, password })
+    attemptRegister() {
+      const { name, email, pw: password, confirm } = this.registerForm
+      this.register({ name, email, password, confirm })
         .then(data => {
           if (data.success) {
             localStorage.setItem('user', JSON.stringify(data.user))
@@ -107,12 +144,8 @@ export default {
             })
           }
         })
-        .catch(err => {
-          const message =
-            err.response && err.response.status === 401
-              ? 'Invalid Email or Password'
-              : 'Woops! something went wrong'
-
+        .catch(() => {
+          const message = 'Woops! something went wrong'
           this.$message({ message, type: 'error', center: true })
         })
     }
@@ -126,29 +159,29 @@ export default {
   min-height: 100vh;
 }
 
-.login {
+.register {
   margin: auto;
 }
 
-.login__img {
+.register__img {
   display: block;
   height: 250px;
   margin: auto;
 }
 
-.login__header {
+.register__header {
   text-align: center;
   color: #002638;
 }
 
-.login__header--sm {
+.register__header--sm {
   display: block;
   opacity: 0.65;
   margin-top: 30px;
   font-size: 20px;
 }
 
-.login__header--lg {
+.register__header--lg {
   display: block;
   font-size: 30px;
 }

@@ -8,19 +8,41 @@
         active-text-color="#fafafa"
         text-color="#ababab"
         class="menu">
-        <el-menu-item index="/" class="brand">
-          <img
-            class="menu__img"
-            src="../assets/images/009-location-sm.png"
-            alt="logo">
-          <span class="menu__logo">Ground Out</span>
-        </el-menu-item>
-        <el-menu-item index="/tickets" :route="{ name: 'tickets' }">
-          Find Tickets
-        </el-menu-item>
-        <el-menu-item index="/teams/welcome" :route="{ name: 'teams' }">
-          Teams
-        </el-menu-item>
+        <div class="menu--left">
+          <el-menu-item index="/" class="brand">
+            <img
+              class="menu__img"
+              src="../assets/images/009-location-sm.png"
+              alt="logo">
+            <span class="menu__logo">Ground Out</span>
+          </el-menu-item>
+          <el-menu-item index="/tickets" :route="{ name: 'tickets' }">
+            Find Tickets
+          </el-menu-item>
+          <el-menu-item index="/teams/welcome" :route="{ name: 'teams' }">
+            Teams
+          </el-menu-item>
+        </div>
+        <div class="menu--right">
+          <el-menu-item
+            v-if="isLoggedIn"
+            @click="logout"
+            index="#">
+            Log Out
+          </el-menu-item>
+          <el-menu-item
+            v-if="!isLoggedIn"
+            :route="{ name: 'login' }"
+            index="/login">
+            Login
+          </el-menu-item>
+          <el-menu-item
+            v-if="!isLoggedIn"
+            :route="{ name: 'register' }"
+            index="/register">
+            Register
+          </el-menu-item>
+        </div>
       </el-menu>
     </div>
   </div>
@@ -28,10 +50,54 @@
 </template>
 
 <script>
-export default {}
+import { createNamespacedHelpers } from 'vuex'
+import { ACTIONS, STATE, GETTERS } from '../store/modules/auth.module'
+
+const { mapState, mapGetters, mapActions } = createNamespacedHelpers(
+  'authModule'
+)
+
+export default {
+  methods: {
+    ...mapActions({
+      logout: ACTIONS.LOGOUT
+    }),
+
+    exit() {
+      this.logout()
+    }
+  },
+
+  computed: {
+    ...mapState({
+      user: STATE.USER
+    }),
+
+    ...mapGetters({
+      isLoggedIn: GETTERS.IS_LOGGED_IN
+    })
+  }
+}
 </script>
 
 <style lang="scss" scoped>
+.menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu--left {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.menu--right {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .menu li:first-of-type {
   border-bottom: none;
 }

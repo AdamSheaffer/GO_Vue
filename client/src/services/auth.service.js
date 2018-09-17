@@ -7,6 +7,22 @@ const authService = {
 
   register(user) {
     return axios.post('account/register', user).then(({ data }) => data)
+  },
+
+  getUser() {
+    const userStr = localStorage.getItem('user')
+    if (!userStr) return
+
+    return JSON.parse(userStr)
+  },
+
+  getToken() {
+    return localStorage.getItem('token')
+  },
+
+  removeAll() {
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
   }
 }
 

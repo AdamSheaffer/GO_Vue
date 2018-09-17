@@ -12,6 +12,7 @@
 <script>
 import * as L from 'leaflet/dist/leaflet'
 import { mapState, mapGetters } from 'vuex'
+import { STATE, GETTERS } from '../store/modules/ticketFinder.module'
 
 const defaultLat = 39.5
 const defaultLon = -98.35
@@ -121,16 +122,16 @@ export default {
   },
 
   computed: {
-    ...mapState(['lat', 'lon', 'events']),
-    ...mapGetters(['eventsByLocation'])
+    ...mapState('ticketFinderModule', [STATE.LAT, STATE.LON, STATE.EVENTS]),
+    ...mapGetters('ticketFinderModule', [GETTERS.EVENTS_BY_LOCATION])
   },
 
   watch: {
-    lat() {
+    [STATE.LAT]() {
       this.map.panTo(L.latLng(this.lat, this.lon))
     },
 
-    events(events) {
+    [STATE.EVENTS](events) {
       this.preloadLocationImages(this.eventsByLocation)
       this.setMarkers(this.eventsByLocation)
       this.setBounds(this.eventsByLocation)

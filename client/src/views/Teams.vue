@@ -1,10 +1,9 @@
 <template>
-  <el-container>
+  <el-container class="container">
     <el-aside id="ticket-sidebar">
       <el-menu
         :collapse-transition="false"
         :collapse="sidebarCollapsed"
-        background-color="#fafafa"
         :router="true"
         :default-openeds="['2', '3']"
         class="el-menu-vertical-demo team-list">
@@ -36,7 +35,7 @@
         </el-submenu>
       </el-menu>
     </el-aside>
-    <el-main>
+    <el-main class="main">
       <router-view></router-view>
     </el-main>
   </el-container>
@@ -84,6 +83,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main {
+  background: #fafafa;
+}
+
 .team-list {
   min-height: 100vh;
 }
