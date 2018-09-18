@@ -1,18 +1,22 @@
 import tripsService from '../../services/trips.service'
+import parkService from '../../services/park.service'
 
 const STATE = {
   TRIPS: 'trips',
-  BADGES: 'badges'
+  BADGES: 'badges',
+  PARKS: 'parks'
 }
 
 const MUTATIONS = {
   SET_TRIPS: 'SET_TRIPS',
-  SET_BADGES: 'SET_BADGES'
+  SET_BADGES: 'SET_BADGES',
+  SET_PARKS: 'SET_PARKS'
 }
 
 const ACTIONS = {
   GET_TRIPS: 'getTrips',
-  GET_BADGES: 'getBadges'
+  GET_BADGES: 'getBadges',
+  GET_PARKS: 'getParks'
 }
 
 const GETTERS = {}
@@ -22,7 +26,8 @@ const userTripsModule = {
 
   state: {
     [STATE.TRIPS]: [],
-    [STATE.BADGES]: []
+    [STATE.BADGES]: [],
+    [STATE.PARKS]: []
   },
 
   mutations: {
@@ -32,6 +37,10 @@ const userTripsModule = {
 
     [MUTATIONS.SET_BADGES](state, payload) {
       state[STATE.BADGES] = payload
+    },
+
+    [MUTATIONS.SET_PARKS](state, payload) {
+      state[STATE.PARKS] = payload
     }
   },
 
@@ -58,6 +67,20 @@ const userTripsModule = {
           .then(data => {
             if (data.success) {
               commit(MUTATIONS.SET_BADGES, data.badges)
+            }
+            resolve(data)
+          })
+          .catch(reject)
+      })
+    },
+
+    [ACTIONS.GET_PARKS]({ commit }) {
+      return new Promise((resolve, reject) => {
+        parkService
+          .getAllParks()
+          .then(data => {
+            if (data.success) {
+              commit(MUTATIONS.SET_PARKS, data.parks)
             }
             resolve(data)
           })
