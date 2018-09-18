@@ -11,6 +11,15 @@ const tripsService = {
     return axios.get('api/trips', { headers }).then(({ data }) => data)
   },
 
+  postUserTrip(tripFormData) {
+    const headers = createAuthHeader()
+    headers['Accept'] = 'application/json'
+
+    return axios
+      .post('api/trips', tripFormData, { headers })
+      .then(({ data }) => data)
+  },
+
   getBadges(userId) {
     const headers = createAuthHeader()
     return axios

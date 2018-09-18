@@ -1,32 +1,37 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const tripSchema = new mongoose.Schema({
+const tripSchema = new mongoose.Schema(
+  {
     user: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User',
-        required: true
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: true
     },
     photos: [String],
     createdDate: {
-        type: Date,
-        default: Date.now()
+      type: Date,
+      default: Date.now()
     },
     tripDate: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true
     },
     park: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Park',
-        required: true
+      type: mongoose.Schema.ObjectId,
+      ref: 'Park',
+      required: true
     },
     comments: String,
     rating: {
-        type: Number,
-        min: 1,
-        max: 5,
-        required: true
+      type: Number,
+      min: 1,
+      max: 5,
+      required: true
     }
-});
+  },
+  {
+    usePushEach: true
+  }
+)
 
-module.exports = mongoose.model('Trip', tripSchema);
+module.exports = mongoose.model('Trip', tripSchema)
