@@ -17,7 +17,8 @@ import { STATE, GETTERS } from '../store/modules/ticketFinder.module'
 const defaultLat = 39.5
 const defaultLon = -98.35
 const defaultZoom = 4
-const mapboxUrl = process.env.VUE_APP_MAP_URL
+const mapboxUrl =
+  'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYWRhbXNoZWFmZmVyIiwiYSI6ImNqa2s1OWRieDA4emYzdnBiZnF1ZmU1b3AifQ.W6pXH3av-6y3UzRO8dAIMg'
 const mapboxAttribution =
   'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>' +
   'contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,' +
