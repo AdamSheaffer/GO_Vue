@@ -53,6 +53,9 @@ export default {
   },
 
   mounted() {
+    // override scroll behavior
+    window.scrollTo(0, 0)
+
     parkService.getAllParks().then(data => {
       this.parks = data.parks
     })

@@ -1,5 +1,5 @@
 <template>
-  <el-main>
+  <el-main class="main">
     <el-row :gutter="25">
       <el-col
         :xs="24"
@@ -17,6 +17,7 @@
         <trip-map :trips="trips"/>
         <trip-progress :trips="trips" :parks="parks"/>
         <user-badges :badges="badges"/>
+        <park-list :parks="parks" :trips="trips"/>
       </el-col>
     </el-row>
   </el-main>
@@ -30,6 +31,7 @@ import TripsProgress from '../components/TripsProgress.vue'
 import Badges from '../components/Badges.vue'
 import { STATE, ACTIONS } from '../store/modules/userTrips.module'
 import { createNamespacedHelpers } from 'vuex'
+import ScrapbookParks from '../components/ScrapbookParks.vue'
 
 const { mapState, mapActions } = createNamespacedHelpers('userTripsModule')
 
@@ -38,7 +40,8 @@ export default {
     'user-trip': Trip,
     'trip-map': TripMap,
     'trip-progress': TripsProgress,
-    'user-badges': Badges
+    'user-badges': Badges,
+    'park-list': ScrapbookParks
   },
 
   mounted() {
@@ -84,3 +87,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.main {
+  background: #fafafa;
+}
+</style>
