@@ -14,6 +14,7 @@
           <span class="login__header login__header--lg">LOGIN</span>
           </div>
           <el-form
+            @submit.prevent="submit"
             :model="loginForm"
             ref="loginForm"
             :rules="rules">
@@ -99,6 +100,7 @@ export default {
               type: 'success',
               center: true
             })
+            this.$router.push('/trips')
           } else {
             this.$message({
               message: data.message,

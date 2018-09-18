@@ -30,11 +30,20 @@
           </el-menu-item>
         </div>
         <div class="menu--right">
-          <el-menu-item
-            v-if="isLoggedIn"
-            @click="logout"
-            index="#">
-            Log Out
+          <img
+            v-if="!!user"
+            :src="user.gravatar"
+            :alt="user.name"
+            class="avatar">
+          <el-menu-item index="#">
+            <el-dropdown v-if="isLoggedIn">
+              <span class="el-dropdown-link">
+                {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click="logout">Log Out</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </el-menu-item>
           <el-menu-item
             v-if="!isLoggedIn"
@@ -71,6 +80,11 @@ export default {
 
     exit() {
       this.logout()
+      this.$message({
+        center: true,
+        message: 'You are now logged out'
+      })
+      this.$router.push('/')
     }
   },
 
@@ -116,5 +130,12 @@ export default {
   display: inline;
   color: #fafafa;
   font-size: 18px;
+}
+
+.avatar {
+  height: 45px;
+  display: block;
+  border-radius: 100px;
+  margin: auto 0;
 }
 </style>

@@ -20,6 +20,23 @@ const authService = {
     return localStorage.getItem('token')
   },
 
+  parseToken(encoded) {
+    const payload = encoded.split('.')[1]
+    const base64 = payload.replace(/-/g, '+').replace(/_/g, '/')
+    return JSON.parse(atob(base64))
+  },
+
+  isLoggedIn() {
+    const encoded = this.getToken()
+
+    if (!encoded) return false
+
+    const token = this.parseToken(encoded)
+    const expiration = token.exp
+    const currentTime = Date.now() / 1000
+    return expiration > currentTime
+  },
+
   removeAll() {
     localStorage.removeItem('user')
     localStorage.removeItem('token')

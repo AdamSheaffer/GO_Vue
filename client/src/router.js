@@ -50,6 +50,11 @@ export default new Router({
       path: '/trips',
       name: 'trips',
       component: () => import('./views/Scrapbook.vue')
+    },
+    {
+      path: '/trips/new',
+      name: 'new',
+      component: () => import('./views/TripLogger.vue')
     }
   ]
 })
