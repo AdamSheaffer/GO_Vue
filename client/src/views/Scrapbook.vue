@@ -1,6 +1,6 @@
 <template>
   <el-main>
-    <el-row>
+    <el-row :gutter="25">
       <el-col
         :xs="24"
         :md="12"
@@ -11,6 +11,12 @@
           :key="trip._id">
         </user-trip>
       </el-col>
+      <el-col
+        :xs="24"
+        :md="12"
+        :lg="10">
+        <trip-map :trips="trips"></trip-map>
+      </el-col>
     </el-row>
   </el-main>
 </template>
@@ -18,6 +24,7 @@
 <script>
 // import parkService from '../services/park.service'
 import Trip from '../components/Trip.vue'
+import TripMap from '../components/TripMap.vue'
 import { STATE, ACTIONS } from '../store/modules/userTrips.module'
 import { createNamespacedHelpers } from 'vuex'
 
@@ -25,41 +32,40 @@ const { mapState, mapActions } = createNamespacedHelpers('userTripsModule')
 
 export default {
   components: {
-    'user-trip': Trip
+    'user-trip': Trip,
+    'trip-map': TripMap
   },
 
   mounted() {
-    this.getUserTrips()
-      .then(data => {
-        if (!data.success) {
-          this.$message({
-            message: data.message,
-            type: 'error',
-            center: true
-          })
-        }
-      })
-      .catch(() => {
-        this.$message({
-          message: 'Woops! something went wrong',
-          type: 'error',
-          center: true
-        })
-      })
-
-    // tripsService.getBadges(this.user._id).then(data => {
-    //   this.badges = data.badges
-    // })
-
-    // parkService.getAllParks().then(data => {
-    //   this.parks = data.parks
-    // })
+    this.handleErrors(this.getUserTrips())
+    this.handleErrors(this.getBadges())
   },
 
   methods: {
     ...mapActions({
-      getUserTrips: ACTIONS.GET_TRIPS
-    })
+      getUserTrips: ACTIONS.GET_TRIPS,
+      getBadges: ACTIONS.GET_BADGES
+    }),
+
+    handleErrors(promise) {
+      return promise
+        .then(data => {
+          if (!data.success) {
+            this.$message({
+              message: data.message,
+              type: 'error',
+              center: true
+            })
+          }
+        })
+        .catch(() => {
+          this.$message({
+            message: 'Woops! something went wrong',
+            type: 'error',
+            center: true
+          })
+        })
+    }
   },
 
   computed: {

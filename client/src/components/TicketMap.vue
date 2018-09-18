@@ -71,8 +71,7 @@ export default {
     L.tileLayer(mapboxUrl, {
       attribution: mapboxAttribution,
       maxZoom: 18,
-      id: 'mapbox.streets',
-      accessToken: this.token
+      id: 'mapbox.streets'
     }).addTo(this.map)
 
     if (this.events && this.events.length) {
