@@ -116,7 +116,7 @@ export default {
       },
 
       rules: {
-        date: [
+        tripDate: [
           { required: true, message: 'Date is required', trigger: 'blur' }
         ],
         park: [{ required: true, message: 'Park is required', trigger: 'blur' }]
