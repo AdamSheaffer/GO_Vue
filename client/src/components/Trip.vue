@@ -8,13 +8,13 @@
         {{trip.tripDate | datetime('MMMM D, YYYY')}}
       </span>
       <div class="trip__header--right">
-        <el-tooltip
+        <!-- <el-tooltip
           class="item"
           effect="dark"
           content="Edit Trip"
           placement="left">
           <i class="el-icon-edit-outline option option--info"></i>
-        </el-tooltip>
+        </el-tooltip> -->
         <el-tooltip
           class="item"
           effect="dark"

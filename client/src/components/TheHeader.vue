@@ -16,22 +16,28 @@
               alt="logo">
             <span class="menu__logo">Ground Out</span>
           </el-menu-item>
-          <el-menu-item index="/tickets" :route="{ name: 'tickets' }">
-            Find Tickets
-          </el-menu-item>
-          <el-menu-item index="/teams/welcome" :route="{ name: 'teams' }">
-            Teams
-          </el-menu-item>
           <el-menu-item
             v-if="isLoggedIn"
             index="/trips"
             :route="{ name: 'trips' }">
             Scrapbook
           </el-menu-item>
+          <el-menu-item
+            v-if="isLoggedIn"
+            index="/trips/new"
+            :route="{ name: 'new' }">
+            Log Trip
+          </el-menu-item>
+          <el-menu-item index="/tickets" :route="{ name: 'tickets' }">
+            Find Tickets
+          </el-menu-item>
+          <el-menu-item index="/teams/welcome" :route="{ name: 'teams' }">
+            Teams
+          </el-menu-item>
         </div>
         <div class="menu--right">
           <img
-            v-if="!!user"
+            v-if="!!user && isLoggedIn"
             :src="user.gravatar"
             :alt="user.name"
             class="avatar">
