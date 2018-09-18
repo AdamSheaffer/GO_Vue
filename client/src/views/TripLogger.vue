@@ -82,6 +82,7 @@
                 <el-button
                   type="primary"
                   @click="attemptSubmit"
+                  :loading="isSaving"
                   class="action__btn">
                   Submit
                 </el-button>
@@ -183,11 +184,7 @@ export default {
               center: true
             })
             this.$router.push('/trips')
-            // if (data.badges && data.badges.length) {
-            //   // this.badges = data.badges
-            // } else {
-            //   // this.navigateToTrips()
-            // }
+            // TODO: Check for badges
           } else {
             this.$message({
               message: data.message,
