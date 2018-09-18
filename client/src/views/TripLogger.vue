@@ -182,6 +182,7 @@ export default {
               type: 'success',
               center: true
             })
+            this.$router.push('/trips')
             // if (data.badges && data.badges.length) {
             //   // this.badges = data.badges
             // } else {

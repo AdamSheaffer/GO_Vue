@@ -34,16 +34,29 @@
         score-template="{value} / 5">
       </el-rate>
     </div>
-    <!-- PHOTOS -->
+    <el-row class="gallery" type="flex" justify="start">
+      <div
+        v-for="(photo, index) in trip.photos"
+        :key="index"
+        class="gallery__container">
+        <el-card :body-style="{padding: '4px'}">
+          <img :src="photoDir + photo" class="gallery__img">
+        </el-card>
+      </div>
+    </el-row>
   </el-card>
 </template>
 
 <script>
+const photoDir = 'https://groundout.blob.core.windows.net/groundout/'
+
 export default {
   props: ['trip'],
 
   data() {
-    return {}
+    return {
+      photoDir: photoDir
+    }
   },
 
   methods: {
@@ -59,7 +72,7 @@ export default {
         }
       )
         .then(() => {
-          this.emit('delete')
+          this.$emit('remove', this.trip._id)
         })
         .catch(() => {})
     }
@@ -98,5 +111,18 @@ export default {
   .option--danger {
     color: #fd423f;
   }
+}
+.gallery {
+  flex-wrap: wrap;
+}
+
+.gallery__img {
+  display: block;
+  height: 100px;
+}
+
+.gallery__container {
+  padding: 10px;
+  cursor: pointer;
 }
 </style>

@@ -9,7 +9,8 @@
           <user-trip
             v-for="trip in trips"
             :trip="trip"
-            :key="trip._id"/>
+            :key="trip._id"
+            @remove="removeTrip"></user-trip>
         </div>
         <div v-else>
           <el-card class="welcome-card">
@@ -79,7 +80,8 @@ export default {
     ...mapActions({
       getUserTrips: ACTIONS.GET_TRIPS,
       getBadges: ACTIONS.GET_BADGES,
-      getParks: ACTIONS.GET_PARKS
+      getParks: ACTIONS.GET_PARKS,
+      deleteTrip: ACTIONS.DELETE_TRIP
     }),
 
     handleErrors(promise) {
@@ -95,11 +97,29 @@ export default {
         })
         .catch(() => {
           this.$message({
-            message: 'Woops! something went wrong',
+            message: 'Woops! Something went wrong',
             type: 'error',
             center: true
           })
         })
+    },
+
+    removeTrip(tripId) {
+      this.deleteTrip(tripId).then(data => {
+        if (data.success) {
+          this.$message({
+            message: data.message,
+            center: true,
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: 'Woops! Something went wrong',
+            center: true,
+            type: 'success'
+          })
+        }
+      })
     }
   },
 

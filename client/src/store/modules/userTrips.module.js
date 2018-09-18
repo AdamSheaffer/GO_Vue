@@ -16,7 +16,8 @@ const MUTATIONS = {
 const ACTIONS = {
   GET_TRIPS: 'getTrips',
   GET_BADGES: 'getBadges',
-  GET_PARKS: 'getParks'
+  GET_PARKS: 'getParks',
+  DELETE_TRIP: 'deleteTrip'
 }
 
 const GETTERS = {}
@@ -83,6 +84,26 @@ const userTripsModule = {
               commit(MUTATIONS.SET_PARKS, data.parks)
             }
             resolve(data)
+          })
+          .catch(reject)
+      })
+    },
+
+    [ACTIONS.DELETE_TRIP]({ state, commit }, tripId) {
+      const trip = state[STATE.TRIPS].find(t => t._id === tripId)
+      if (!trip) return Promise.reject(new Error('No trip with that ID'))
+
+      return new Promise((resolve, reject) => {
+        tripsService
+          .deleteUserTrip(tripId)
+          .then(data => {
+            if (data.success) {
+              const filtered = state[STATE.TRIPS].filter(t => t._id !== tripId)
+              commit(MUTATIONS.SET_TRIPS, filtered)
+              resolve(data)
+            } else {
+              resolve(data)
+            }
           })
           .catch(reject)
       })

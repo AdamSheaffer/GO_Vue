@@ -5,7 +5,7 @@
       type="flex"
       justify="start"
       class="row-bg">
-      <em v-if="!badge || !badges.length">
+      <em v-if="!badges || !badges.length">
         You haven't earned any badges yet!
       </em>
       <el-col

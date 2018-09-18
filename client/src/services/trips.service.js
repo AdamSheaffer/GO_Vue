@@ -20,6 +20,13 @@ const tripsService = {
       .then(({ data }) => data)
   },
 
+  deleteUserTrip(tripId) {
+    const headers = createAuthHeader()
+    return axios
+      .delete(`api/trips/${tripId}`, { headers })
+      .then(({ data }) => data)
+  },
+
   getBadges(userId) {
     const headers = createAuthHeader()
     return axios
