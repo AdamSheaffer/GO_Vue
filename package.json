@@ -14,7 +14,7 @@
     "dev": "concurrently \"nodemon --inspect start.js\" \"cd client/ && npm run serve\"",
     "loadparks": "node ./data/parkData.js",
     "blowitallaway": "node ./data/parkData.js --delete",
-    "postinstall": "cd client && npm install && npm run build --prod"
+    "postinstall": "cd client && npm install && ./node_modules/.bin/vue-cli-service build"
   },
   "repository": {
     "type": "git",
