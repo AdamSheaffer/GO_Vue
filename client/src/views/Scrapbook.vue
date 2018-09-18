@@ -16,6 +16,7 @@
         :lg="10">
         <trip-map :trips="trips"/>
         <trip-progress :trips="trips" :parks="parks"/>
+        <user-badges :badges="badges"/>
       </el-col>
     </el-row>
   </el-main>
@@ -26,6 +27,7 @@
 import Trip from '../components/Trip.vue'
 import TripMap from '../components/TripMap.vue'
 import TripsProgress from '../components/TripsProgress.vue'
+import Badges from '../components/Badges.vue'
 import { STATE, ACTIONS } from '../store/modules/userTrips.module'
 import { createNamespacedHelpers } from 'vuex'
 
@@ -35,7 +37,8 @@ export default {
   components: {
     'user-trip': Trip,
     'trip-map': TripMap,
-    'trip-progress': TripsProgress
+    'trip-progress': TripsProgress,
+    'user-badges': Badges
   },
 
   mounted() {
