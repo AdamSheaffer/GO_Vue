@@ -136,6 +136,7 @@ export default {
               type: 'success',
               center: true
             })
+            this.$router.push('/trips')
           } else {
             this.$message({
               message: data.message,
