@@ -14,12 +14,13 @@
           <span class="login__header login__header--lg">LOGIN</span>
           </div>
           <el-form
-            @submit.prevent="submit"
+            @submit.native.prevent="submit"
             :model="loginForm"
             ref="loginForm"
             :rules="rules">
             <el-form-item label="Email" prop="email">
               <el-input
+                @keyup.native.enter="submit"
                 v-model="loginForm.email"
                 type="text"
                 placeholder="Email">
@@ -39,7 +40,7 @@
               type="error"
               class="alert">
             </el-alert>
-            <el-button @click="submit">Log In</el-button>
+            <el-button @click="submit" native-type="submit">Log In</el-button>
           </el-form>
         </el-card>
       </el-col>

@@ -191,7 +191,6 @@ export default {
 
     attemptSubmit() {
       this.$refs.form.validate(isValid => {
-        debugger
         if (isValid) {
           this.submit()
         } else {

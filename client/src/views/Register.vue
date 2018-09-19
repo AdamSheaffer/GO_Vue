@@ -20,6 +20,7 @@
           <span class="register__header register__header--lg">SIGN UP</span>
           </div>
           <el-form
+            @submit.native.prevent="submit"
             :model="registerForm"
             ref="registerForm"
             :rules="rules">
@@ -58,7 +59,7 @@
               type="error"
               class="alert alert--error">
             </el-alert>
-            <el-button @click="submit">Register</el-button>
+            <el-button @click="submit" native-type="submit">Register</el-button>
           </el-form>
         </el-card>
       </el-col>
