@@ -58,25 +58,24 @@ export default {
 
   computed: {
     alParks() {
-      const parks = this.parks.filter(park =>
-        park.division.includes('American')
-      )
-      return parks.map(p => {
-        const hasVisited = !!this.trips.find(t => t.park._id === p._id)
-        p.hasVisited = hasVisited
-        return p
-      })
+      return this.parksByDivision('American')
     },
 
     nlParks() {
-      const parks = this.parks.filter(park =>
-        park.division.includes('National')
-      )
-      return parks.map(p => {
-        const hasVisited = !!this.trips.find(t => t.park._id === p._id)
-        p.hasVisited = hasVisited
-        return p
-      })
+      return this.parksByDivision('National')
+    },
+
+    parksByDivision() {
+      return division => {
+        const parks = this.parks.filter(park =>
+          park.division.includes(division)
+        )
+        return parks.map(p => {
+          const hasVisited = !!this.trips.find(t => t.park._id === p._id)
+          p.hasVisited = hasVisited
+          return p
+        })
+      }
     }
   }
 }
