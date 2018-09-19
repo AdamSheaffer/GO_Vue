@@ -42,12 +42,12 @@
             :alt="user.name"
             class="avatar">
           <el-menu-item index="#">
-            <el-dropdown v-if="isLoggedIn">
+            <el-dropdown v-if="isLoggedIn" @command="exit">
               <span class="el-dropdown-link">
                 {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click="logout">Log Out</el-dropdown-item>
+                <el-dropdown-item @click="exit">Log Out</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-menu-item>
