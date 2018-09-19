@@ -48,5 +48,6 @@ html {
 
 body {
   margin: 0;
+  background-attachment: #fafafa;
 }
 </style>
