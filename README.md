@@ -1,25 +1,9 @@
 # Ground Out
 
-This is a re-boot of the first AngularJS project I ever made using Vue and the Vue CLI. It is a tool to help baseball fans who are interested in seeing every major league ballpark in America document their trips and monitor their progress.
+Testing the merits of Vue by swapping out the angular front end for GroundOut and replacing it with Vue.
 
-To run you will need a `variables.env` containing these environment variables:
+Vue Version (under development): <https://groundoutvue.herokuapp.com>
 
-```
-DATABASE=[DATABASE_URI]
-SECRET=[SECRET]
-SEATGEEK_ID=[SEATGEEK_API_KEY] // https://seatgeek.com/account/develop
-SEATGEEK_URI=https://api.seatgeek.com/2/events
-```
+Angular Version: <https://groundout.herokuapp.com>
 
-```
-$ npm install
-$ npn run dev
-```
-
-To load park and badge data:
-
-`npm run loadparks`
-
-To delete park and badge data:
-
-`npm run blowitallaway`
+Angular Repo: <https://github.com/AdamSheaffer/GO/>
