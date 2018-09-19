@@ -92,6 +92,37 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <div v-if="showBadgeModal">
+    <el-dialog
+      :title="activeBadge ? activeBadge.title : ''"
+      :visible.sync="showBadgeModal"
+      width="30%"
+      center
+      class="badge-dialog">
+      <img
+        v-show="showBadgeModal"
+        class="badge-dialog__img"
+        :src="require(`../assets/images/${badges[activeBadgeIndex].image}`)" alt="badge">
+      <h5 v-show="showBadgeModal" class="badge-dialog__content">
+        {{activeBadge.description}}
+      </h5>
+      <span
+        v-if="isLastActiveBadge"
+        slot="footer"
+        class="dialog-footer">
+          <router-link :to="{ path: '/trips' }">
+            <el-button @click="centerDialogVisible = false">View Scrapbook</el-button>
+          </router-link>
+      </span>
+      <span
+        v-else
+        slot="footer"
+        class="dialog-footer">
+        <el-button @click="badgeIndex += 1">OK</el-button>
+      </span>
+    </el-dialog>
+    </div>
   </el-main>
 </template>
 
@@ -107,6 +138,8 @@ export default {
       photoPreviews: [],
       showValidationError: false,
       isSaving: false,
+      badges: null,
+      activeBadgeIndex: 0,
 
       form: {
         tripDate: null,
@@ -158,6 +191,7 @@ export default {
 
     attemptSubmit() {
       this.$refs.form.validate(isValid => {
+        debugger
         if (isValid) {
           this.submit()
         } else {
@@ -183,8 +217,11 @@ export default {
               type: 'success',
               center: true
             })
-            this.$router.push('/trips')
-            // TODO: Check for badges
+            if (data.badges && data.badges.length) {
+              this.badges = data.badges
+            } else {
+              this.$router.push('/trips')
+            }
           } else {
             this.$message({
               message: data.message,
@@ -205,6 +242,24 @@ export default {
 
     formatDate(date) {
       return this.$options.filters.datetime(date, 'L')
+    }
+  },
+
+  computed: {
+    showBadgeModal() {
+      return this.badges && this.badges.length > 0
+    },
+
+    activeBadge() {
+      if (!this.badges) return null
+
+      return this.badges[this.activeBadgeIndex]
+    },
+
+    isLastActiveBadge() {
+      if (!this.badges) return true
+
+      return this.activeBadgeIndex >= this.badges.length - 1
     }
   }
 }
@@ -249,5 +304,16 @@ export default {
 .divider {
   opacity: 0.5;
   margin-bottom: 20px;
+}
+
+.badge-dialog__img {
+  display: block;
+  height: 250px;
+  margin: auto;
+}
+
+.badge-dialog__content {
+  text-align: center;
+  font-size: 15px;
 }
 </style>
